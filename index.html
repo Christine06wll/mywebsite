@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>温娉婷 · 个人主页</title>
+<meta name="theme-color" content="#8E7BD6">
+<meta name="description" content="温娉婷 Christine，厦门大学社会工作硕士（2027 届）。用户运营 · 项目统筹 · 数据驱动。">
+<style>
+  :root{
+    --paper:#FBF9FE;
+    --paper-2:#F1ECFA;
+    --ink:#241E33;
+    --ink-2:#453D57;
+    --muted:#7C748F;
+    --line:#E4DCF3;
+    --accent:#8E7BD6;
+    --accent-soft:#EFE9FC;
+    --clay:#A48BDE;
+    --radius:18px;
+    --max:1120px;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+    --serif:"Noto Serif SC","Songti SC","Source Han Serif SC",Georgia,"Times New Roman",serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.78;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+
+  /* ---------- 顶部进度 ---------- */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:linear-gradient(90deg,var(--accent),var(--clay));
+    z-index:100;transition:width .1s linear;
+  }
+
+  /* ---------- 导航 ---------- */
+  .nav{
+    position:sticky;top:0;z-index:90;
+    background:rgba(251,249,254,.82);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease,box-shadow .3s ease;
+  }
+  .nav.scrolled{border-bottom-color:var(--line);}
+  .nav-inner{
+    height:64px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.04em;font-size:15px;}
+  .brand-dot{
+    width:9px;height:9px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px var(--accent-soft);
+  }
+  .nav-links{display:flex;gap:30px;}
+  .nav-links a{
+    font-size:14px;color:var(--muted);position:relative;padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--accent);transition:width .3s ease;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--ink);}
+  .nav-links a.active::after,.nav-links a:hover::after{width:100%;}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;padding:88px 0 72px;}
+  .hero::before{
+    content:"";position:absolute;inset:-120px -10% auto -10%;height:640px;
+    background:
+      radial-gradient(46% 52% at 78% 32%,rgba(155,134,226,.16),transparent 70%),
+      radial-gradient(40% 40% at 12% 6%,rgba(196,178,242,.20),transparent 72%);
+    pointer-events:none;z-index:0;
+  }
+  .hero-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.12fr .88fr;gap:64px;align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--clay);}
+  h1{
+    font-family:var(--serif);
+    font-size:clamp(38px,5.2vw,64px);
+    line-height:1.14;
+    font-weight:600;
+    letter-spacing:-.01em;
+  }
+  h1 .name{
+    color:var(--accent);
+    position:relative;
+    white-space:nowrap;
+  }
+  h1 .name::after{
+    content:"";position:absolute;left:0;right:0;bottom:.04em;height:.42em;
+    background:rgba(142,123,214,.16);z-index:-1;border-radius:2px;
+  }
+  .lede{
+    margin-top:26px;max-width:30em;color:var(--ink-2);font-size:16.5px;
+  }
+  .lede strong{color:var(--ink);font-weight:600;}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 26px;border-radius:999px;font-size:14.5px;font-weight:500;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .25s ease,background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 10px 24px -12px rgba(142,123,214,.55);}
+  .btn-primary:hover{background:#7B66CC;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(142,123,214,.6);}
+  .btn-ghost{border-color:var(--line);color:var(--ink-2);background:rgba(255,255,255,.5);}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px);}
+  .btn svg{width:15px;height:15px;}
+
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;
+  }
+  .chip{
+    font-size:12.5px;color:var(--ink-2);padding:6px 14px;border-radius:999px;
+    background:#fff;border:1px solid var(--line);
+  }
+
+  /* 名片 */
+  .nametag-wrap{position:relative;}
+  .nametag-wrap::before{
+    content:"";position:absolute;inset:14px -6px -10px 18px;
+    border-radius:26px;background:linear-gradient(150deg,#EBE3FC,#F5F1FD);
+    transform:rotate(-2.2deg);
+  }
+  .nametag{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:26px;padding:38px 34px 32px;
+    box-shadow:0 34px 60px -34px rgba(76,58,120,.18);
+  }
+  .seal{
+    width:100px;height:100px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%,#A895E4,#7B66CC);
+    color:#fff;font-family:var(--serif);font-size:38px;font-weight:600;
+    display:grid;place-items:center;letter-spacing:0;
+    box-shadow:0 14px 30px -14px rgba(142,123,214,.6),inset 0 0 0 6px rgba(255,255,255,.10);
+    margin-bottom:22px;
+  }
+  /* 证件照：圆形裁切，object-position 微调取景，偏上让脸部居中 */
+  img.seal{
+    object-fit:cover;object-position:center 18%;
+    border:4px solid #fff;
+    outline:1px solid var(--line);
+    box-shadow:0 14px 30px -14px rgba(76,58,120,.28);
+  }
+  .nametag h2{font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:.02em;}
+  .nametag .en{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+  .nametag .role{
+    margin-top:16px;font-size:13.5px;color:var(--accent);
+    background:var(--accent-soft);display:inline-block;padding:5px 13px;border-radius:6px;
+  }
+  .divide{height:1px;background:var(--line);margin:24px 0 18px;}
+  .meta-row{
+    display:flex;justify-content:space-between;gap:14px;font-size:13.5px;padding:7px 0;
+  }
+  .meta-row span:first-child{color:var(--muted);letter-spacing:.04em;}
+  .meta-row span:last-child{color:var(--ink-2);text-align:right;}
+
+  /* ---------- 通用 section ---------- */
+  section{padding:78px 0;}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:44px;}
+  .sec-num{
+    font-family:var(--serif);font-size:13px;color:var(--clay);letter-spacing:.12em;
+  }
+  .sec-title{
+    font-family:var(--serif);font-size:clamp(24px,3vw,32px);font-weight:600;letter-spacing:.01em;
+  }
+  .sec-rule{flex:1;height:1px;background:var(--line);}
+
+  /* 关于 */
+  .about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start;}
+  .about-text p{color:var(--ink-2);margin-bottom:16px;}
+  .about-text p:last-child{margin-bottom:0;}
+  .about-text em{font-style:normal;color:var(--accent);font-weight:500;}
+  .pillar{
+    display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line);
+  }
+  .pillar:last-child{border-bottom:1px solid var(--line);}
+  .pillar-idx{
+    font-family:var(--serif);font-size:13px;color:var(--muted);padding-top:4px;min-width:26px;
+  }
+  .pillar h3{font-size:15.5px;font-weight:600;margin-bottom:4px;letter-spacing:.01em;}
+  .pillar p{font-size:14px;color:var(--muted);line-height:1.72;}
+
+  /* 数据条 */
+  .stats{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:46px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  }
+  .stat{text-align:center;position:relative;}
+  .stat + .stat::before{
+    content:"";position:absolute;left:-12px;top:14%;height:72%;width:1px;background:var(--line);
+  }
+  .stat .num{
+    font-family:var(--serif);font-size:clamp(30px,3.4vw,42px);font-weight:600;
+    color:var(--accent);letter-spacing:-.01em;line-height:1.1;
+  }
+  .stat .num i{font-style:normal;font-size:.62em;margin-left:2px;}
+  .stat .lbl{font-size:12.5px;color:var(--muted);margin-top:8px;letter-spacing:.06em;}
+
+  /* 经历时间轴 */
+  .timeline{position:relative;}
+  .timeline::before{
+    content:"";position:absolute;left:180px;top:12px;bottom:12px;width:1px;background:var(--line);
+  }
+  .job{
+    display:grid;grid-template-columns:180px 1fr;gap:38px;
+    padding:26px 0;position:relative;
+  }
+  .job + .job{border-top:1px dashed transparent;}
+  .job-date{
+    font-size:12.5px;color:var(--muted);letter-spacing:.05em;padding-top:6px;text-align:right;padding-right:38px;
+  }
+  .job-body{position:relative;padding-left:6px;}
+  .job-body::before{
+    content:"";position:absolute;left:-44px;top:9px;width:9px;height:9px;border-radius:50%;
+    background:var(--paper);border:1.5px solid var(--clay);
+    transition:background .3s ease,transform .3s ease;
+  }
+  .job:hover .job-body::before{background:var(--clay);transform:scale(1.25);}
+  .job-body h3{font-size:17px;font-weight:600;letter-spacing:.01em;}
+  .job-body .org{
+    font-size:13.5px;color:var(--accent);margin-top:3px;letter-spacing:.02em;
+  }
+  .job-body ul{margin-top:14px;list-style:none;}
+  .job-body li{
+    position:relative;padding-left:16px;font-size:14.5px;color:var(--ink-2);
+    margin-bottom:7px;line-height:1.75;
+  }
+  .job-body li::before{
+    content:"";position:absolute;left:0;top:.72em;width:5px;height:1px;background:var(--clay);
+  }
+  .job-body li b{color:var(--ink);font-weight:600;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .tag{
+    font-size:11.5px;color:var(--muted);background:var(--paper-2);
+    padding:4px 11px;border-radius:5px;letter-spacing:.03em;
+  }
+
+  /* ---------- 作品：案例折叠块 ---------- */
+  .work{margin-top:20px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#FBF9FE,#FFF);overflow:hidden;}
+  .work > summary{
+    list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px;
+    font-size:13.5px;color:var(--ink-2);transition:background .25s ease;
+  }
+  .work > summary::-webkit-details-marker{display:none;}
+  .work > summary:hover{background:var(--accent-soft);}
+  .work-tag{
+    font-size:10.5px;letter-spacing:.14em;color:#fff;background:var(--accent);
+    padding:3px 9px;border-radius:4px;flex:none;
+  }
+  .work > summary .t{font-weight:600;color:var(--ink);}
+  .work > summary .caret{
+    margin-left:auto;width:8px;height:8px;border-right:1.5px solid var(--accent);
+    border-bottom:1.5px solid var(--accent);transform:rotate(45deg);
+    transition:transform .3s ease;flex:none;
+  }
+  .work[open] > summary .caret{transform:rotate(-135deg);}
+  .work[open] > summary{background:var(--accent-soft);border-bottom:1px solid var(--line);}
+
+  .work-body{padding:26px 24px 28px;}
+  .work-body > p{font-size:14px;color:var(--ink-2);line-height:1.8;margin-bottom:22px;}
+
+  /* 七步流程：竖排步骤条 */
+  .flow{position:relative;margin:0 0 24px;padding-left:0;list-style:none;}
+  .flow::before{
+    content:"";position:absolute;left:13px;top:16px;bottom:16px;width:1px;
+    background:linear-gradient(180deg,var(--accent-soft),var(--line));
+  }
+  .flow li{position:relative;padding:0 0 18px 42px;font-size:13.8px;color:var(--ink-2);line-height:1.75;}
+  .flow li:last-child{padding-bottom:0;}
+  .flow li::before{
+    content:attr(data-step);position:absolute;left:0;top:0;
+    width:27px;height:27px;border-radius:50%;background:#fff;border:1px solid var(--line);
+    color:var(--accent);font-family:var(--serif);font-size:11px;
+    display:grid;place-items:center;
+  }
+  .flow li b{color:var(--ink);font-weight:600;}
+  .flow li .note{display:block;color:var(--muted);font-size:12.5px;margin-top:3px;line-height:1.7;}
+
+  /* 两个机制：卡片 */
+  .mech{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  .mech-item{
+    background:var(--paper-2);border-radius:10px;padding:16px 18px;
+  }
+  .mech-item h4{font-size:12.5px;letter-spacing:.08em;color:var(--accent);margin-bottom:7px;font-weight:600;}
+  .mech-item p{font-size:13px;color:var(--ink-2);line-height:1.75;}
+
+  .takeaway{
+    border-left:2px solid var(--clay);padding:2px 0 2px 16px;
+    font-size:13.5px;color:var(--ink-2);line-height:1.8;
+  }
+  .takeaway b{color:var(--ink);}
+
+  /* 分层与分场景：小标题 + 编号列表 */
+  .sop-h{
+    font-size:12.5px;letter-spacing:.1em;color:var(--accent);font-weight:600;
+    margin:24px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);
+  }
+  .sop-h:first-child{margin-top:0;}
+  .sop-list{list-style:none;}
+  .sop-list li{
+    position:relative;padding:0 0 14px 26px;font-size:13.6px;color:var(--ink-2);line-height:1.78;
+  }
+  .sop-list li:last-child{padding-bottom:0;}
+  .sop-list li::before{
+    content:attr(data-n);position:absolute;left:0;top:2px;
+    font-family:var(--serif);font-size:11.5px;color:var(--clay);letter-spacing:.02em;
+  }
+  .sop-list li b{color:var(--ink);font-weight:600;}
+  .sop-list li .eg{
+    display:block;margin-top:6px;padding:9px 13px;background:var(--paper-2);
+    border-radius:8px;font-size:12.5px;color:var(--ink-2);line-height:1.72;
+  }
+  .sop-list li .eg em{font-style:normal;color:var(--accent);font-weight:500;}
+
+  /* 教育 / 证书 */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 32px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+  }
+  .card:hover{transform:translateY(-4px);border-color:#D6CBF2;box-shadow:0 22px 44px -28px rgba(76,58,120,.22);}
+  .card-label{
+    font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:20px;
+  }
+  .school{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--line);}
+  .school:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none;}
+  .school-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;}
+  .school h3{font-size:16px;font-weight:600;}
+  .school .when{font-size:12.5px;color:var(--muted);white-space:nowrap;}
+  .school p{font-size:13.5px;color:var(--muted);margin-top:4px;}
+  .cert-list{list-style:none;}
+  .cert-list li{
+    display:flex;justify-content:space-between;gap:16px;font-size:14px;
+    padding:11px 0;border-bottom:1px dashed var(--line);color:var(--ink-2);
+  }
+  .cert-list li:last-child{border-bottom:none;padding-bottom:0;}
+  .cert-list li span:last-child{color:var(--muted);font-size:12.5px;white-space:nowrap;}
+  .skill-row{margin-top:20px;font-size:13.5px;color:var(--muted);line-height:1.9;}
+  .skill-row b{color:var(--ink);font-weight:600;}
+
+  /* 联系 */
+  .contact{
+    background:linear-gradient(160deg,#F4EFFE,#FBF9FE 62%,#F7F3FE);
+    color:var(--ink);border:1px solid var(--line);border-radius:24px;padding:64px 56px;
+    box-shadow:0 30px 60px -44px rgba(76,58,120,.28);
+    display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .contact::after{
+    content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(167,146,232,.20),transparent 68%);
+  }
+  .contact h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,36px);font-weight:600;line-height:1.3;}
+  .contact p{margin-top:14px;color:var(--ink-2);font-size:14.5px;max-width:26em;}
+  .contact-list{position:relative;z-index:1;display:flex;flex-direction:column;gap:2px;}
+  .contact-item{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:14px 2px;border-bottom:1px solid rgba(142,123,214,.16);
+    font-size:14px;transition:padding-left .3s ease,opacity .3s ease;
+  }
+  .contact-item:last-child{border-bottom:none;}
+  .contact-item .k{color:var(--muted);font-size:12.5px;letter-spacing:.1em;}
+  .contact-item .v{color:var(--ink);letter-spacing:.02em;text-align:right;}
+  .contact-item:hover{padding-left:8px;}
+  .contact-item:hover .v{color:var(--accent);}
+
+  footer{
+    border-top:1px solid var(--line);margin-top:78px;padding:30px 0 44px;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--muted);letter-spacing:.04em;
+  }
+
+  /* 动效 */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* 联系信息：长邮箱在窄屏不撑破版式 */
+  .contact-item .v{overflow-wrap:anywhere;}
+
+  @media (max-width:900px){
+    .hero{padding:56px 0 40px;}
+    .hero-grid{grid-template-columns:1fr;gap:48px;}
+    .nametag-wrap{max-width:420px;}
+    .about-grid,.edu-grid{grid-template-columns:1fr;gap:36px;}
+    .stats{grid-template-columns:repeat(2,1fr);gap:34px 24px;padding:38px 26px;}
+    .stat + .stat::before{display:none;}
+    .timeline::before{left:5px;}
+    .job{grid-template-columns:1fr;gap:6px;}
+    .job-date{text-align:left;padding:0 0 0 24px;font-size:12px;letter-spacing:.08em;}
+    .job-body{padding-left:24px;}
+    .job-body::before{left:-5px;top:6px;}
+    .contact{grid-template-columns:1fr;padding:44px 30px;gap:32px;}
+    .mech{grid-template-columns:1fr;}
+    .nav-links{gap:18px;}
+    .nav-links a{font-size:13px;}
+    section{padding:56px 0;}
+    .wrap{padding:0 22px;}
+  }
+  @media (max-width:560px){
+    .nav-links a:nth-child(3){display:none;}
+    .btn{padding:12px 20px;font-size:13.5px;}
+    .nametag{padding:30px 26px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    .reveal{opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="brand-dot"></span>温娉婷</div>
+    <nav class="nav-links">
+      <a href="#about" class="">关于</a>
+      <a href="#experience">经历</a>
+      <a href="#education" class="">教育</a>
+      <a href="#contact" class="">联系</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">2027 届 · 求职中</div>
+        <h1>你好，我是<br><span class="name">温娉婷</span></h1>
+        <p class="lede">
+          厦门大学社会工作专业硕士。五年间在<strong>快消、商业地产、公益</strong>三种场景里做事，
+          习惯把模糊的问题拆成可执行的流程，也习惯用数据验证结果。
+          目前正在寻找<strong>市场 / 职能 / 管培生</strong>方向的机会。
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#experience">
+            看看我做过什么
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a class="btn btn-ghost" href="#contact">联系我</a>
+        </div>
+        <div class="hero-meta">
+          <span class="chip">用户运营</span>
+          <span class="chip">项目统筹</span>
+          <span class="chip">数据驱动</span>
+          <span class="chip">内容与社群</span>
+        </div>
+      </div>
+
+      <div class="nametag-wrap reveal">
+        <div class="nametag">
+          <!-- 证件照：photo.jpg 与本页面放在同一目录；换照片直接覆盖该文件即可 -->
+          <img class="seal" src="photo.jpg" alt="温娉婷 Christine 证件照" width="100" height="100">
+          <h2>温娉婷</h2>
+          <div class="en">Christine</div>
+          <div class="role">市场 / 职能 / 管培生</div>
+          <div class="divide"></div>
+          <div class="meta-row"><span>现居</span><span>北京 · 厦门</span></div>
+          <div class="meta-row"><span>学历</span><span>社会工作硕士（2027 届）</span></div>
+          <div class="meta-row"><span>实习</span><span>5 段 · 跨 3 个行业</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 关于 ============ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <h2 class="sec-title">关于我</h2>
+        <span class="sec-rule"></span>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            我是温娉婷，本科与研究生都读社会工作——这个专业教会我的第一件事是：
+            <em>先听懂人，再谈方案</em>。后来我发现，这句话在商业世界里同样成立。
+          </p>
+          <p>
+            在元气森林，我把一场覆盖 4000+ 员工的季度考核从通知做到复盘；
+            在华润万象生活，我把 1500+ 位业主装进 10 个社群，把 50 多起客诉的满意度做到 95%。
+            这些事看起来是"运营"，本质上都是<em>把一群人组织起来，让一件事发生</em>。
+          </p>
+          <p>
+            我擅长在资源有限的情况下推动项目落地，也乐意沉到数据里找答案。
+            接下来想去的团队，是那种愿意把一件事做深、也愿意给新人真实责任的地方。
+          </p>
+        </div>
+
+        <div class="pillars reveal">
+          <div class="pillar">
+            <div class="pillar-idx">01</div>
+            <div>
+              <h3>用户运营</h3>
+              <p>从 0 到 1 搭建社群与会员体系，做分层、做内容、做活动，用留存和活跃说话。</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-idx">02</div>
+            <div>
+              <h3>项目统筹</h3>
+              <p>百人级集训、千人级考核的全流程操盘，把一次性成功沉淀成可复用的 SOP。</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-idx">03</div>
+            <div>
+              <h3>数据与内容</h3>
+              <p>Excel / VLOOKUP / 数据看板是日常工具；脚本、拍摄、剪辑让内容自己会说话。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 数据 ============ -->
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="stats reveal">
+        <div class="stat">
+          <div class="num" data-target="4000" data-suffix="+">4,000<i>+</i></div>
+          <div class="lbl">员工考核覆盖</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-target="1500" data-suffix="+">1,500<i>+</i></div>
+          <div class="lbl">社群用户规模</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-target="1000" data-suffix="+">1,000<i>+</i></div>
+          <div class="lbl">会员增长</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-target="98" data-suffix="%">98<i>%</i></div>
+          <div class="lbl">单据处理准确率</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 经历 ============ -->
+  <section id="experience" style="padding-top:12px;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <h2 class="sec-title">实习经历</h2>
+        <span class="sec-rule"></span>
+      </div>
+
+      <div class="timeline">
+        <article class="job reveal">
+          <div class="job-date">2026.01 — 2026.05</div>
+          <div class="job-body">
+            <h3>培训运营实习生</h3>
+            <div class="org">元气森林 · 培训发展部</div>
+            <ul>
+              <li>统筹 <b>4000+ 员工</b>季度知识考核全流程：题库搭建、通知触达、数据回收与复盘，形成可复用执行模板。</li>
+              <li>参与 <b>100+ 校招生</b>集训营的策划与现场运营，把踩过的坑沉淀为团队 SOP。</li>
+              <li>独立完成企业文化视频的脚本、拍摄与剪辑，用于内部宣发。</li>
+            </ul>
+            <div class="tags"><span class="tag">项目统筹</span><span class="tag">培训运营</span><span class="tag">内容制作</span><span class="tag">SOP 沉淀</span></div>
+
+            <details class="work">
+              <summary>
+                <span class="work-tag">案例</span>
+                <span class="t">4000+ 人季度知识考核：七步流程拆解</span>
+                <span class="caret"></span>
+              </summary>
+              <div class="work-body">
+                <p>
+                  一场覆盖全公司 4000+ 员工的季度考核，本质是<strong>七个环节的串联</strong>：
+                  任何一个环节的信息没提前对齐，后面都会放大成事故。
+                  下面是我实际跟下来的完整链路，以及每一步真正容易出错的地方。
+                </p>
+
+                <ol class="flow">
+                  <li data-step="01">
+                    <b>动员大会</b>
+                    <span class="note">考试项目启动前动员其他部门配合，统一宣布考试时间点。这一步决定后面有没有人按时给你东西。</span>
+                  </li>
+                  <li data-step="02">
+                    <b>确定题目</b>
+                    <span class="note">出题人出题后走三轮审题，第三轮由我终审——核格式、核答案是否正确。</span>
+                  </li>
+                  <li data-step="03">
+                    <b>确定考试参与人员</b>
+                    <span class="note">与 HRBP 逐一确认可参与人数，精准到请假原因。名单不准，后台配置就白做。</span>
+                  </li>
+                  <li data-step="04">
+                    <b>供应商系统配置</b>
+                    <span class="note">操作量最大、最不能出错的一步：配置十几套试卷，把 4000 名员工信息对应导入到各自的试卷中，一人错行就是一场事故。</span>
+                  </li>
+                  <li data-step="05">
+                    <b>运营考试</b>
+                    <span class="note">考试当天的现场保障，处理突发：后台登录异常、考生进不去、权限错配。当天必须有人在。</span>
+                  </li>
+                  <li data-step="06">
+                    <b>展示考试数据</b>
+                    <span class="note">公布参考人数与通过人数，发放个人奖与团队奖——数据公开本身，就是最有效的激励。</span>
+                  </li>
+                  <li data-step="07">
+                    <b>数据分析</b>
+                    <span class="note">按区域团队拆解综合得分，重点盯不及格的个人，通过 HRBP 传导督促。</span>
+                  </li>
+                </ol>
+
+                <div class="mech">
+                  <div class="mech-item">
+                    <h4>触达机制</h4>
+                    <p>以 HRBP 为媒介——我作为考试运营方不直接对 4000 人喊话，而是通过 HRBP 工作群下发，保证信息层层落地、有人负责。</p>
+                  </div>
+                  <div class="mech-item">
+                    <h4>数据回收</h4>
+                    <p>考试后台导出 → 排序 → 分析。关键是：后台所需的字段信息在考试前就已收集并导入，<b>信息收集必须提前预判</b>。</p>
+                  </div>
+                </div>
+
+                <div class="takeaway">
+                  <b>这件事真正的难点不是"办一场考试"，而是"提前预判"。</b>
+                  人员名单、请假情况、字段信息、试卷分配，全部要在考试开始前定型；
+                  进场之后再发现问题，代价会翻十倍。这也是我后来做任何项目都先画流程、先定信息表的原因。
+                </div>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-date">2025.01 — 2025.04</div>
+          <div class="job-body">
+            <h3>客户关系实习生</h3>
+            <div class="org">华润万象生活 · 磐基中心项目 客户关系部</div>
+            <ul>
+              <li>推动会员增长 <b>1000+</b>，搭建并运营 <b>10 个社群、覆盖 1500+ 人</b>。</li>
+              <li>处理 <b>50+ 起客诉</b>，满意度 <b>95%</b>，整理出问题分类表与标准响应话术库。</li>
+              <li>策划落地社群活动，提升业主粘性与项目口碑。</li>
+            </ul>
+            <div class="tags"><span class="tag">用户运营</span><span class="tag">社群运营</span><span class="tag">客诉处理</span></div>
+
+            <details class="work">
+              <summary>
+                <span class="work-tag">案例</span>
+                <span class="t">会员分等级运营：从定级规则到线上线下活动</span>
+                <span class="caret"></span>
+              </summary>
+              <div class="work-body">
+                <p>
+                  会员运营的核心不是"多搞活动"，而是<strong>先分层、再分配资源</strong>：
+                  按消费数据给会员定级，把有限的福利成本投到对的人身上，
+                  再用线上社群做日常活跃、线下活动做拉新与调性。
+                  下面是这套逻辑在实际项目里的落地方式。
+                </p>
+
+                <div class="sop-h">一 · 定级与福利分配</div>
+                <ul class="sop-list">
+                  <li data-n="01">
+                    <b>按消费数据分层</b>：依消费金额划分会员等级，等级决定后续的资源投入与运营动作，而不是所有人一套打法。
+                  </li>
+                  <li data-n="02">
+                    <b>福利差异化投放</b>：在总成本可控的前提下，高阶会员给更丰富、更有稀缺感的权益；普通会员给普惠型福利，保证覆盖面。资源跟着等级走，成本才不会失控。
+                  </li>
+                </ul>
+
+                <div class="sop-h">二 · 线上社群运营（10+ 个社群）</div>
+                <ul class="sop-list">
+                  <li data-n="01">
+                    <b>周度积分兑奖 + 互动抽奖</b>——以提升社群活跃度为目标
+                    <span class="eg">以周为周期滚动执行，覆盖 10+ 个社群；奖品投放量与社群规模匹配，<em>每期奖品基本秒空</em>，形成稳定的参与预期。</span>
+                  </li>
+                  <li data-n="02">
+                    <b>节假日主题活动</b>——以提升用户粘性与转化率为目标
+                    <span class="eg">
+                      独立设计线上情人节互动活动「请听我说，我与 Ta」：设定主题、参与规则与奖品机制，以跟帖点赞作为互动形式。
+                      <em>参与发帖 100+ 人，浏览 1000+ 人</em>——在拉动互动的同时，让商业场景呈现出温度。
+                    </span>
+                  </li>
+                </ul>
+
+                <div class="sop-h">三 · 线下会员运营</div>
+                <ul class="sop-list">
+                  <li data-n="01">
+                    <b>集市摊位式拉新</b>——以会员拉新为目标
+                    <span class="eg">用堆满奖品的摊位做视觉吸引，以「注册即抽奖」降低参与门槛，<em>累计拉新会员 1000+ 人</em>。</span>
+                  </li>
+                  <li data-n="02">
+                    <b>高端特色沙龙</b>——以展现商场调性为目标
+                    <span class="eg">与宣传部伙伴协作主持品牌展演类活动（如华为品牌秀场展演），面向高阶会员，强化项目的高端心智。</span>
+                  </li>
+                </ul>
+
+                <div class="takeaway">
+                  <b>这套打法的底层是"分层思维"。</b>
+                  同样的预算，平均分给 1500 人只会让人没感觉；
+                  分给不同等级、匹配不同形式——线上做活跃、线下做拉新与调性——
+                  才能既控住成本，又让每一层会员都感到被照顾。这也是我理解用户运营的起点。
+                </div>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-date">2024.05 — 2024.06</div>
+          <div class="job-body">
+            <h3>心理咨询师实习生</h3>
+            <div class="org">北京明心心理咨询</div>
+            <ul>
+              <li>参与个案接待与记录整理，协助咨询流程的日常运转。</li>
+              <li>在真实咨询场景中训练倾听、共情与边界感——这是我做用户沟通的底子。</li>
+            </ul>
+            <div class="tags"><span class="tag">沟通共情</span><span class="tag">个案记录</span></div>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-date">2024.01 — 2024.04</div>
+          <div class="job-body">
+            <h3>项目实习生</h3>
+            <div class="org">中华社会救助基金会 · 大爱清尘</div>
+            <ul>
+              <li>处理 <b>800+ 份</b>救助单据，准确率 <b>98%</b>，建立核对清单降低返工。</li>
+              <li>完成 <b>12 人次</b>深度访谈，整理访谈记录并输出分析摘要，支撑项目报告。</li>
+            </ul>
+            <div class="tags"><span class="tag">数据处理</span><span class="tag">质性研究</span><span class="tag">公益项目</span></div>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-date">2023.07 — 2023.09</div>
+          <div class="job-body">
+            <h3>志愿者运营实习生</h3>
+            <div class="org">上海真爱梦想公益基金会</div>
+            <ul>
+              <li>运营 <b>200+ 人</b>志愿者社群，负责招募、排期、激励与日常答疑。</li>
+              <li>协助线下活动执行，处理现场突发与人员调度。</li>
+            </ul>
+            <div class="tags"><span class="tag">社群运营</span><span class="tag">活动执行</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 教育 ============ -->
+  <section id="education" style="padding-top:12px;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <h2 class="sec-title">教育背景与证书</h2>
+        <span class="sec-rule"></span>
+      </div>
+
+      <div class="edu-grid">
+        <div class="card reveal">
+          <div class="card-label">Education</div>
+          <div class="school">
+            <div class="school-top">
+              <h3>厦门大学</h3>
+              <span class="when">2024.09 — 2027.06</span>
+            </div>
+            <p>社会工作 · 硕士（2027 届）· GPA 3.55</p>
+          </div>
+          <div class="school">
+            <div class="school-top">
+              <h3>中央民族大学</h3>
+              <span class="when">2020.09 — 2024.06</span>
+            </div>
+            <p>社会工作 · 学士 · GPA 3.83</p>
+          </div>
+          <div class="skill-row">
+            <b>语言</b>　CET-6／ CET-4 　·　普通话一级乙等
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-label">Certificates &amp; Skills</div>
+          <ul class="cert-list">
+            <li><span>初级经济师（人力资源专业）</span><span>职业资格</span></li>
+            <li><span>助理社会工作者</span><span>职业资格</span></li>
+            <li><span>普通话水平测试 一级乙等</span><span>语言</span></li>
+            <li><span>ChatGPT / DeepSeek / WorkBuddy / Excel 函数 / 数据看板</span><span>工具</span></li>
+            <li><span>视频脚本 · 拍摄 · 剪辑</span><span>内容</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 联系 ============ -->
+  <section id="contact" style="padding-top:12px;">
+    <div class="wrap">
+      <div class="contact reveal">
+        <div>
+          <h2>如果你也在找一个<br>能把事做成的人</h2>
+          <p>欢迎聊聊市场、职能或管培生的机会。简历与作品集可随时发送，面试时间灵活。</p>
+        </div>
+        <div class="contact-list">
+          <div class="contact-item"><span class="k">EMAIL</span><span class="v">17331070533@163.com</span></div>
+          <div class="contact-item"><span class="k">PHONE</span><span class="v">173-3107-0533</span></div>
+          <div class="contact-item"><span class="k">WECHAT</span><span class="v">Lysfmdw</span></div>
+          <div class="contact-item"><span class="k">CITY</span><span class="v">北京 / 上海 / 广州 / 深圳 / 杭州 / 厦门</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 温娉婷 · Christine</span>
+  <span>Designed &amp; built with care.</span>
+</footer>
+
+<script>
+  // 顶部滚动进度
+  const progress = document.getElementById('progress');
+  const nav = document.getElementById('nav');
+  function onScroll(){
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max> 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    nav.classList.toggle('scrolled', h.scrollTop> 8);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // 进场动画
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach((el,i)=>{
+    el.style.transitionDelay = (i % 4) * 0.06 + 's';
+    io.observe(el);
+  });
+
+  // 数字滚动
+  const nums = document.querySelectorAll('.stat .num');
+  const counted = new WeakSet();
+  const nio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting || counted.has(e.target)) return;
+      counted.add(e.target);
+      const el = e.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1400;
+      const start = performance.now();
+      function step(t){
+        const p = Math.min((t - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.innerHTML = val.toLocaleString('en-US') + '<i>' + suffix + '</i>';
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }, {threshold:0.5});
+  nums.forEach(n=>nio.observe(n));
+
+  // 导航高亮
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const sio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const id = '#' + e.target.id;
+      links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === id));
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s=>sio.observe(s));
+</script>
+
+
+</body></html>
